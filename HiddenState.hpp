@@ -77,5 +77,8 @@ protected:
 
   virtual void initAnimationSequence();
 
+private:
+  const std::string TRANSPARENT = "transparent.png";
+
 };
 #endif

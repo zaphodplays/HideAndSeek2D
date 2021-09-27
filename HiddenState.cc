@@ -91,4 +91,6 @@ shared_ptr<vector<CommandType> > HiddenState::getAllowedCommands()
 void HiddenState::initAnimationSequence()
 {
   sequence = make_shared<AnimationSequence>();
+  shared_ptr<DisplayObject> hidden = make_shared<DisplayObject>(TRANSPARENT, 300, 300);
+  sequence->addImage(hidden);
 }

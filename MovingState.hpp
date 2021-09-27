@@ -6,7 +6,7 @@
 class MovingState : public SequenceState
 {
 public:
-  MovingState();
+  MovingState(shared_ptr<Player> player);
   void initState(int roomid, shared_ptr<Point2d> targetCenter, shared_ptr<Point2d> originalCenter);
   virtual void update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<RoleState> > > stateStack, shared_ptr<Player> player);
   virtual std::string printState();
@@ -26,6 +26,7 @@ public:
 private:
   
   shared_ptr<Point2d> targetCenter;
+  shared_ptr<Player> player;
 
   
   

@@ -60,7 +60,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 		      std::cout<<"door center is x = "<<doorcenter->x<<" , y = "<<doorcenter->y<<endl;
 		      shared_ptr<Point2d> origplayercenter = make_shared<Point2d>();
 		      origplayercenter->set(player->getCenter()->x, player->getCenter()->y);
-		      shared_ptr<MovingState> moveToDoor = make_shared<MovingState>();
+		      shared_ptr<MovingState> moveToDoor = make_shared<MovingState>(player);
 		      moveToDoor->initState(currentLocation->getID(), doorcenter, origplayercenter);
 		      moveToDoor->setLocationID(currentLocation->getID());
 		      moveToDoor->setSequence(1);
@@ -75,7 +75,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 		atDoor2->setSequence(3);**/
 		
 		      shared_ptr<Point2d> doorcenter2 = door->getCenter(newLocation->getID());
-		      shared_ptr<MovingState> moveToRoom = make_shared<MovingState>();
+		      shared_ptr<MovingState> moveToRoom = make_shared<MovingState>(player);
 		      moveToRoom->initState(newLocation->getID(), origplayercenter, doorcenter2);
 		      moveToRoom->setLocationID(newLocation->getID());
 		      moveToRoom->setSequence(3);

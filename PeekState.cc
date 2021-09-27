@@ -87,27 +87,7 @@ void PeekState::initAnimationSequence()
 shared_ptr<AnimationSequence> PeekState::initPeekAnimationSequence()
 {
   shared_ptr<AnimationSequence> peekseq = make_shared<AnimationSequence>();
-  shared_ptr<DisplayObject> peek1 = make_shared<DisplayObject>();
-  shared_ptr<Circle> eye1 = make_shared<Circle>();
-  eye1->addParameters(368,330, 2, 0x000000u);
-
-  shared_ptr<Circle> eye2 = make_shared<Circle>();
-  eye2->addParameters(375,330,2, 0x000000u);
-  //replace with peeking image
-  //peek1->addCircle(eye1);
-  //peek1->addCircle(eye2);
-
-  shared_ptr<DisplayObject> peek2 = make_shared<DisplayObject>();
-  shared_ptr<Circle> eye12 = make_shared<Circle>();
-  eye12->addParameters(368,330, 2, 0x005500u);
-
-  shared_ptr<Circle> eye22 = make_shared<Circle>();
-  eye22->addParameters(375,330,2, 0x005500u);
-  //peek2->addCircle(eye12);
-  //peek2->addCircle(eye22);
   
-  peekseq->addImage(peek1);
-  peekseq->addImage(peek2);
   return peekseq;
 }
 
