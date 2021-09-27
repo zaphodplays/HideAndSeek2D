@@ -2,8 +2,8 @@
    "hideseekworld":{
       "player":[
          {
-            "x":250,
-            "y":250,
+            "x":200,
+            "y":300,
             "type":"UserPlayer",
             "personality":"",
             "role":"Hider",
@@ -24,13 +24,24 @@
             "height":50
          },
          {
-            "x":550,
-            "y":250,
+            "x":350,
+            "y":300,
             "type":"AIPlayer",
             "personality":"careful",
             "role":"Hider",
             "name":"ninja",
             "file":"ninja.png",
+            "width":50,
+            "height":50
+         },
+         {
+            "x":150,
+            "y":300,
+            "type":"AIPlayer",
+            "personality":"risky",
+            "role":"Hider",
+            "name":"nitwit",
+            "file":"zombie2.png",
             "width":50,
             "height":50
          }
@@ -62,7 +73,7 @@
          {
             "id":2,
             "name":"living room",
-            "file":"emptyroom.png",
+            "file":"brickroom.png",
             "thing":[
                {
                   "x":200,
@@ -85,7 +96,7 @@
          {
             "id":3,
             "name":"library",
-            "file":"emptyroom.png",
+            "file":"library.png",
             "thing":[
                {
                   "x":300,
@@ -107,8 +118,8 @@
          },
          {
             "id":4,
-            "name":"central hall",
-            "file":"emptyrooml.png",
+            "name":"drawing room",
+            "file":"emptyroom.png",
             "thing":[
                {
                   "x":100,
@@ -131,7 +142,7 @@
          {
             "id":5,
             "name":"bedroom",
-            "file":"emptyroom.png",
+            "file":"emproom.png",
             "thing":[
                {
                   "x":100,
@@ -154,7 +165,7 @@
          {
             "id":6,
             "name":"garden",
-            "file":"emptyroom.png",
+            "file":"garden.png",
             "thing":[
                {
                   "x":100,
@@ -177,7 +188,7 @@
          {
             "id":7,
             "name":"playground",
-            "file":"emptyroom.png",
+            "file":"empoom.png",
             "thing":[
                {
                   "x":100,
@@ -223,7 +234,7 @@
          {
             "id":9,
             "name":"kitchen",
-            "file":"emptyroom.png",
+            "file":"musicroom.png",
             "thing":[
                {
                   "x":100,

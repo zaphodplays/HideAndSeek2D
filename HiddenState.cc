@@ -5,8 +5,9 @@ using namespace std;
 HiddenState::AllowedCmds HiddenState::allowedCommands = initAllowedCmds();
 HiddenState::HiddenStatePersonalityCommandMap HiddenState::hpcMap = initHPCMap();
 
-HiddenState::HiddenState()
+HiddenState::HiddenState(shared_ptr<Player> player)
 {
+  this->player = player;
   initAnimationSequence();
 }
 
@@ -61,6 +62,10 @@ void HiddenState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr<
 	//std::cout<<"in room "<<Room::roomTypeMap.find(location->getRoomType())->second<<endl;
        	break;
       }
+    case CONTINUE:
+    {
+      break;
+    }
     case INVALID:
       {
 	break;
@@ -91,6 +96,6 @@ shared_ptr<vector<CommandType> > HiddenState::getAllowedCommands()
 void HiddenState::initAnimationSequence()
 {
   sequence = make_shared<AnimationSequence>();
-  shared_ptr<DisplayObject> hidden = make_shared<DisplayObject>(TRANSPARENT, 300, 300);
+  shared_ptr<DisplayObject> hidden = make_shared<DisplayObject>(TRANSPARENT, player->getCenter()->x, player->getCenter()->y);
   sequence->addImage(hidden);
 }

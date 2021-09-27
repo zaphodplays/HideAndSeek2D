@@ -113,7 +113,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
       case HIDE:
 	{
 	  std::cout<<"in HIDE case"<<endl;
-	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>();
+	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>(player);
 	  hiddenState->setLocationID(stateStack->top()->getLocationID());
 	  //std::cout<<"in room"<<Room::roomTypeMap.find(this->location->getRoomType())->second<<endl;
 	

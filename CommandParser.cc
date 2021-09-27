@@ -171,6 +171,9 @@ CommandParser::CommandParser()
   shared_ptr<Command> jumpCommand = make_shared<Command>();
   jumpCommand->commandType = JUMP;
 
+  shared_ptr<Command> stopCommand = make_shared<Command>();
+  stopCommand->commandType = STOP;
+
   shared_ptr<Command> continueCommand = make_shared<Command>();
   continueCommand->commandType = CONTINUE;
 
@@ -185,6 +188,7 @@ CommandParser::CommandParser()
   commandMap[Command::check] = checkCommand;
   commandMap[Command::move] = moveCommand;
   commandMap[Command::jump] = jumpCommand;
+  commandMap[Command::stop] = stopCommand;
 
   
 

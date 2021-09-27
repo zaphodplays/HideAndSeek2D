@@ -11,7 +11,7 @@ class HiddenState : public RoleState
 {
 public:
 
-  HiddenState();
+  HiddenState(shared_ptr<Player> player);
 
   typedef shared_ptr<vector<CommandType> > AllowedCmds;
   static AllowedCmds allowedCommands;
@@ -79,6 +79,7 @@ protected:
 
 private:
   const std::string TRANSPARENT = "transparent.png";
+  shared_ptr<Player> player;
 
 };
 #endif

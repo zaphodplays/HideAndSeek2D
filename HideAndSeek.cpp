@@ -244,13 +244,7 @@ void EngineMain()
 	engine->drawText(hellotext.c_str(), 200, 700);
 	
 	shared_ptr<Command> cmdUser;
-	//rayva->processCommand(cmdRayva);
-	shared_ptr<Command> cmdClara;
-	shared_ptr<Command> cmdDaniel;
-	shared_ptr<Command> cmdEmma;
-	shared_ptr<Command> cmdRayvda;
-	shared_ptr<Command> cmdOliver;
-	shared_ptr<Command> cmdMumma;
+
 
 	std::cout<<"before starting game "<<user->role->stateStack->top()->printState()<<endl;
 
@@ -262,7 +256,7 @@ void EngineMain()
 	double btime = 0;
 	double utime = 0;
 	double seqtime = 0;
-	const double SEQSECS = 1;
+	const double SEQSECS = 2;
 	const double CMDSECS = 2;
 	const double FPS = 0.1;
 	

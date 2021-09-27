@@ -194,6 +194,10 @@ namespace platform
 
 	void deinit()
 	{
+		if(gameWindow_ == nullptr)
+			return;
+		if(apple == nullptr)
+			return;
 		TTF_CloseFont(apple);
 		TTF_Quit();
 		//imgTextureList.clear();
@@ -208,7 +212,7 @@ namespace platform
 			
 			printf("E: %s\n", SDL_GetError());	
 			SDL_ClearError();
-			printf("erasing text textures\n");
+			//printf("erasing text textures\n");
 			++txitor;
 		}
 
@@ -226,7 +230,7 @@ namespace platform
 			
 			printf("E: %s\n", SDL_GetError());	
 			SDL_ClearError();
-			printf("erasing img rect sources\n");
+			//printf("erasing img rect sources\n");
 			
 		}
 
@@ -240,7 +244,7 @@ namespace platform
 			
 			printf("E: %s\n", SDL_GetError());	
 			SDL_ClearError();
-			printf("erasing text rect sources\n");
+			//printf("erasing text rect sources\n");
 			
 		}
 		
@@ -258,7 +262,7 @@ namespace platform
 			//texture = 0;
 			printf("E: %s\n", SDL_GetError());	
 			SDL_ClearError();
-			printf("erasing img textures\n");
+			//printf("erasing img textures\n");
 			itor = imagemap.erase(itor);
 		}
 		//imagemap.clear();
@@ -266,8 +270,10 @@ namespace platform
 		SDL_DestroyTexture(texture_target);
 		printf("erased target textures\n");
 		SDL_DestroyRenderer(renderer);
+		renderer = 0;
 		printf("erased renderer\n");
 		SDL_DestroyWindow(gameWindow_);
+		gameWindow_ = 0;
 		printf("destroyed game window\n");
 		printf("finally %s\n", SDL_GetError());
 		SDL_Quit();
@@ -277,7 +283,7 @@ namespace platform
 
 	void addTextToTexture(const std::string message, int x, int y) 
 	{
-		printf("addText:: %s at %d,%d\n", message.c_str(), x, y);
+		//printf("addText:: %s at %d,%d\n", message.c_str(), x, y);
 		//this opens a font style and sets a size
 		
 		// this is the color in rgb format,
@@ -303,7 +309,7 @@ namespace platform
 		Message_rect->w = surfaceMessage->w; // controls the width of the rect
 		Message_rect->h = surfaceMessage->h; // controls the height of the rect
 		SDL_FreeSurface(surfaceMessage);
-		printf("before inserting\n");
+		//printf("before inserting\n");
 		if(!Message)
 		{
 			printf("%s\n", SDL_GetError());
@@ -312,7 +318,7 @@ namespace platform
 		{
 			textTextureList.push_back(Message);
 			textsourcerectList.push_back(Message_rect);
-			printf("after insertion\n");
+			//printf("after insertion\n");
 		}
 		
 		// (0,0) is on the top left of the window/screen,
@@ -332,7 +338,7 @@ namespace platform
 			printf("RENDERER IS NULL %s\n", SDL_GetError());
 			return;
 		}
-		printf("addImage:: %s at %d,%d\n", filename.c_str(), x, y);
+		//printf("addImage:: %s at %d,%d\n", filename.c_str(), x, y);
 		unordered_map<std::string, SDL_Texture*>::iterator itor = imagemap.find(filename);
 		SDL_Texture* imgTexture;
 		//SDL_Renderer* renderer = SDL_GetRenderer(gameWindow_);
@@ -342,23 +348,23 @@ namespace platform
 				
 				//imgTexture = IMG_LoadTexture(renderer, filename.c_str());
 				imgTexture = getImgTexture(filename);
-				printf("IMAGE LOADED %s\n", filename.c_str());
+				//printf("IMAGE LOADED %s\n", filename.c_str());
 				if(imgTexture)
 				{
 					imagemap[filename] = imgTexture;
-					printf("added to map for %s\n", filename.c_str());
+					//printf("added to map for %s\n", filename.c_str());
 					
 				}
 				else 
 				{
-					printf("img texture null for %s\n", filename.c_str());
+					//printf("img texture null for %s\n", filename.c_str());
 					
 				}
 				
 			}
 		else 
 		{
-			printf("IMAGE IN CACHE\n");
+			//printf("IMAGE IN CACHE\n");
 			imgTexture = itor->second;
 		}
 		if (!imgTexture)
@@ -373,17 +379,17 @@ namespace platform
 		SDL_QueryTexture(imgTexture, NULL, NULL, &w, &h); // get the width and height of the texture
 		// put the location where we want the texture to be drawn into a rectangle
 		// I'm also scaling the texture 2x simply by setting the width and height
-		printf("for  %s, x is %d, y is %d, w is %d , h is %d\n", filename.c_str(), x, y, w, h);
+		//printf("for  %s, x is %d, y is %d, w is %d , h is %d\n", filename.c_str(), x, y, w, h);
 		SDL_Rect* texr = new SDL_Rect(); 
 		texr->x = x; texr->y = y; texr->w = w; texr->h = h; 
 		
 		
-		printf("before insertion\n");
+		//printf("before insertion\n");
 		if(imgTexture) 
 		{
 			imgTextureList.push_back(imgTexture);
 			imgsourcerectList.push_back(texr);
-			printf("after insertion list size is %d\n", imgTextureList.size());
+			//printf("after insertion list size is %d\n", imgTextureList.size());
 		}
 		texr = 0;
 		// (0,0) is on the top left of the window/screen,
@@ -533,7 +539,7 @@ namespace platform
 			
 			if(txr)
 			{
-				printf("drect is %d, %d, %d, %d\n", drect.x, drect.y, drect.w, drect.h);
+				//printf("drect is %d, %d, %d, %d\n", drect.x, drect.y, drect.w, drect.h);
     		/* Let's copy the other textures onto the target texture. */
 			//SDL_ClearError();
 				SDL_RenderCopy(renderer, txr,  NULL, &drect);
@@ -561,7 +567,7 @@ namespace platform
 			
 			if(txr)
 			{
-				printf(" textdrect is %d, %d, %d, %d\n", drect.x, drect.y, drect.w, drect.h);
+				//printf(" textdrect is %d, %d, %d, %d\n", drect.x, drect.y, drect.w, drect.h);
     		/* Let's copy the other textures onto the target texture. */
 			//SDL_ClearError();
 				SDL_RenderCopy(renderer, txr,  NULL, &drect);
@@ -709,11 +715,11 @@ namespace platform
 		if(itor == imagemap.end())
 			{
 				imgTexture = IMG_LoadTexture(renderer, filename.c_str());
-				printf("LOADING IMAGE CALLED %s\n", filename.c_str());
+				//printf("LOADING IMAGE CALLED %s\n", filename.c_str());
 				imagemap[filename] = imgTexture;
 			}
 		else {
-			printf("IMAGE IN CACHE\n");
+			//printf("IMAGE IN CACHE\n");
 			imgTexture = itor->second;
 		}
 		if (!imgTexture)
@@ -728,7 +734,7 @@ namespace platform
 		SDL_QueryTexture(imgTexture, NULL, NULL, &w, &h); // get the width and height of the texture
 		// put the location where we want the texture to be drawn into a rectangle
 		// I'm also scaling the texture 2x simply by setting the width and height
-		printf("for  %s, w is %d , h is %d\n", filename.c_str(), w, h);
+		//printf("for  %s, w is %d , h is %d\n", filename.c_str(), w, h);
 		SDL_Rect texr; texr.x = 0; texr.y = 0; texr.w = w; texr.h = h; 
 		
 	
@@ -789,7 +795,7 @@ namespace platform
 		//SDL_Surface* canvasSurface = SDL_CreateRGBSurfaceFrom(canvas, rect.w, rect.h, 32, rect.w * 4, 0xff0000, 0xff00,  0xff, 0);
 		
 		SDL_Surface* imgSurface = loadImage(filename);
-		printf("LOAD IMAGE CALLED");
+		//printf("LOAD IMAGE CALLED");
 		if (!imgSurface)
 		{
 			SDL_FreeSurface(imgSurface);

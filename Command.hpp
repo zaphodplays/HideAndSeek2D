@@ -44,6 +44,7 @@ public:
   static const std::string check;
   static const std::string move;
   static const std::string jump;
+  static const std::string stop;
     
 
 private:
@@ -55,6 +56,8 @@ private:
     someMap[lights] = LIGHTS;
     someMap[hide] = HIDE;
     someMap[unhide] = UNHIDE;
+    someMap[jump] = JUMP;
+    someMap[stop] = STOP;
     someMap[peek] = PEEK;
     someMap[run] = RUN;
     someMap[check] = CHECK;
