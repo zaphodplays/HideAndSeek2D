@@ -18,8 +18,8 @@
             "type":"AIPlayer",
             "personality":"nutty",
             "role":"Hider",
-            "name":"Dumble",
-            "file":"dumble.png",
+            "name":"zombie",
+            "file":"zombie.png",
             "width":50,
             "height":50
          },
@@ -29,8 +29,8 @@
             "type":"AIPlayer",
             "personality":"careful",
             "role":"Hider",
-            "name":"hermione",
-            "file":"hermione.png",
+            "name":"ninja",
+            "file":"ninja.png",
             "width":50,
             "height":50
          }
