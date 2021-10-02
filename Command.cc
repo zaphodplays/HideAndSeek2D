@@ -12,6 +12,7 @@ const std::string Command::check = "check";
 const std::string Command::move = "move";
 const std::string Command::jump = "jump";
 const std::string Command::stop = "stop";
+const std::string Command::found = "found";
 
 
 Command::enumMap Command::strenum_map = initMap();

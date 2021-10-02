@@ -18,6 +18,7 @@ using namespace std;
 
 
 class Player;
+class Thing;
 
 class Room :public enable_shared_from_this<Room> {
 

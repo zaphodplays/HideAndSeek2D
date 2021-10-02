@@ -5,10 +5,18 @@ using namespace std;
 
 PeekState::AllowedCmds PeekState::allowedCommands = initAllowedCmds();
 PeekState::PeekStatePersonalityCommandMap PeekState::ppcMap = initPPCMap();
+std::string PeekState::EYES = "eyes.png";
+std::string PeekState::NOEYES = "NOEYES.png";
 
-PeekState::PeekState()
+PeekState::PeekState(shared_ptr<Thing> thing)
 {
+  this->thing = thing;
   initAnimationSequence();
+}
+
+shared_ptr<Thing> PeekState::getThing()
+{
+  return thing;
 }
 
 shared_ptr<vector<int> > PeekState::getWeights(AIPersonalityType personality)
@@ -30,7 +38,7 @@ std::string PeekState::printState()
   std::string print = " in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print= print+ location->getName();
-  print = print + " peeking from  " + Thing::thingTypeToNameMap.find(thing->thingtype)->second; 
+  print = print + " peeking from  " + thing->getName();
   return print;
 }
 
@@ -63,6 +71,7 @@ void PeekState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr< R
    }
  case UNHIDE:
    {
+     thing = nullptr;
      stateStack->pop();
      stateStack->pop();
      break;
@@ -87,7 +96,12 @@ void PeekState::initAnimationSequence()
 shared_ptr<AnimationSequence> PeekState::initPeekAnimationSequence()
 {
   shared_ptr<AnimationSequence> peekseq = make_shared<AnimationSequence>();
-  
+  int x = rand()%50;
+  int y = rand()%50;
+  shared_ptr<DisplayObject> eyes = make_shared<DisplayObject>(EYES, thing->getCenter()->x+ x, thing->getCenter()->y+ y);
+  shared_ptr<DisplayObject> noeyes = make_shared<DisplayObject>(NOEYES, thing->getCenter()->x+ x, thing->getCenter()->y+ y);
+  peekseq->addImage(eyes);
+  peekseq->addImage(noeyes);
   return peekseq;
 }
 

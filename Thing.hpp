@@ -8,19 +8,21 @@
 #include "DisplayObject.hpp"
 #include "Engine.h"
 #include "Enums.hpp"
+#include "Player.hpp"
 
 
 
 using namespace std;
 
-  
+class Player;  
 
-class Thing
+class Thing : public  enable_shared_from_this<Thing>
 {
 
 private:
   std::string name;
   std::string filename;
+  std::vector<std::string>  players;
 
   virtual shared_ptr<Thing> clone() = 0;
 public:
@@ -33,6 +35,11 @@ public:
 
   void setFilename(std::string filename);
   std::string getFilename();
+
+  void addPlayer(const std::string& name);
+  void removePlayer(const std::string name);
+  vector<std::string> &seek();
+  void clear();
 
   virtual shared_ptr<vector<RELATION> > getAllowedRelationsForCmdType(CommandType commandType) ;
   bool isEmpty();
@@ -102,6 +109,9 @@ public:
     tMap[LARGEBOX] = largebox;
     return tMap;
   }
+
+    typedef shared_ptr<Thing> THING_PTR;
+    static shared_ptr<Thing> NO_THING;
   private:
     static RelationMap initMap() {
       RelationMap someMap;

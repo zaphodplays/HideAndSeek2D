@@ -12,14 +12,16 @@
 
 using namespace std;
 
+class Thing;
 class Room;
 class Player;
+
 class RoleState : public enable_shared_from_this<RoleState> 
 {
   
 public:
   RoleState();
-  shared_ptr<Thing> thing;
+
   shared_ptr<AnimationSequence> sequence;
   virtual void update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<RoleState> > > stateStack, shared_ptr<Player> player) = 0;
 public:

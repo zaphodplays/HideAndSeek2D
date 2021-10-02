@@ -9,6 +9,7 @@ Player::PlayerNameMap Player::playerNameMap = Player::initPlayerNameMap();
 Player::PlayerTypeTable Player::playerTypeTable = initPlayerTypeTable();
 
 
+
 Player::Player()
 {
   //standing = make_shared<vector<shared_ptr<DisplayObject> > >();
@@ -223,3 +224,5 @@ void Player::initializePersonality(std::string type)
 {
   //do nothing really
 }
+
+

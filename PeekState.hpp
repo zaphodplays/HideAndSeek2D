@@ -7,7 +7,9 @@ class PeekState : public RoleState
 {
 public:
 
-  PeekState();
+  PeekState(shared_ptr<Thing> thing);
+
+  shared_ptr<Thing> getThing();
   
   typedef shared_ptr<vector<CommandType> > AllowedCmds;
   static AllowedCmds allowedCommands;
@@ -83,7 +85,9 @@ protected:
   virtual void initAnimationSequence();
 
 private:
-
+  static std::string EYES;
+  static std::string NOEYES;
+  shared_ptr<Thing> thing;
   shared_ptr<AnimationSequence> initPeekAnimationSequence();
 
 };

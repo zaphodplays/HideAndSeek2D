@@ -5,9 +5,10 @@ using namespace std;
 HiddenState::AllowedCmds HiddenState::allowedCommands = initAllowedCmds();
 HiddenState::HiddenStatePersonalityCommandMap HiddenState::hpcMap = initHPCMap();
 
-HiddenState::HiddenState(shared_ptr<Player> player)
+HiddenState::HiddenState(shared_ptr<Player> player, shared_ptr<Thing> thing)
 {
   this->player = player;
+  this->thing = thing;
   initAnimationSequence();
 }
 
@@ -38,25 +39,29 @@ void HiddenState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr<
     case LOOK:
       {
 	//std::cout<<"You are hiding in "<< thing->thingtype<<endl;
-	break;
+	      break;
       }
     case HIDE:
       {
 	//std::cout<<"you are already hiding"<<endl;
-	break;
+	      break;
       }
     case PEEK:
       {
-	shared_ptr<RoleState> currentState = stateStack->top();
-	shared_ptr<PeekState> peekState = make_shared<PeekState>();
-	peekState->setLocationID(currentState->getLocationID());
-	peekState->thing = currentState->thing;
-	stateStack->push(peekState);
-	break;
+        shared_ptr<RoleState> currentState = stateStack->top();
+        shared_ptr<PeekState> peekState = make_shared<PeekState>(thing);
+        peekState->setLocationID(currentState->getLocationID());
+     
+        stateStack->push(peekState);
+        break;
       }
     case UNHIDE:
       {
-	stateStack->pop();
+        
+        thing->removePlayer(player->getName());
+        thing = nullptr;
+        player = nullptr;
+        stateStack->pop();
 	
 	
 	//std::cout<<"in room "<<Room::roomTypeMap.find(location->getRoomType())->second<<endl;

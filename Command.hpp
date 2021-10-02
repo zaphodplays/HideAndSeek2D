@@ -45,6 +45,7 @@ public:
   static const std::string move;
   static const std::string jump;
   static const std::string stop;
+  static const std::string found;
     
 
 private:
@@ -62,6 +63,7 @@ private:
     someMap[run] = RUN;
     someMap[check] = CHECK;
     someMap[move] = MOVE;
+    someMap[found] = FOUND;
     return someMap;
   }
   /**

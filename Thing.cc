@@ -24,6 +24,7 @@ Thing::RelationStringMap Thing::relStrMap = initRelStrMap();
 Thing::ThingMap Thing::thingMap = initThingMap();
 Thing::ThingTypeToNameMap Thing::thingTypeToNameMap = initThingTypeToNameMap();
 Thing::ThingTable Thing::thingTable = initThingTable();
+Thing::THING_PTR Thing::NO_THING = nullptr;
 
 
 Thing::Thing()
@@ -55,6 +56,38 @@ std::string Thing::getFilename()
 {
   return filename;
 }
+
+void Thing::addPlayer(const string& player)
+{
+  players.push_back(player);
+  
+}
+
+vector<std::string> &Thing::seek()
+{
+  return players;
+}
+
+void Thing::clear()
+{
+  players.clear();
+}
+
+void Thing::removePlayer(std::string player)
+{
+  std::vector<std::string>::iterator pitor = players.begin();
+  while(pitor != players.end())
+  {
+    if(player.compare(*pitor) == 0)
+    {
+      pitor = players.erase(pitor);
+      continue;
+    }
+    
+    pitor++;
+  }
+}
+
 
 bool Thing::isEmpty()
 {

@@ -60,77 +60,81 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
 
     case HIDE:
       {
-	if( (size == 3) && (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
-	  {
-	    cmd->prep = Thing::relMap.find(parsedInput[1])->second;
-	    ThingType thingType  = Thing::thingMap.find(parsedInput[2])->second;
-	    //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;
-	    cmd->thingType = thingType;
-	    std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
-	  }
-	else 
-	  {
-	    cmd->commandType = INVALID;
-	  }
-	break;
+        if( (size == 3) && (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
+          {
+            cmd->prep = Thing::relMap.find(parsedInput[1])->second;
+            ThingType thingType  = Thing::thingMap.find(parsedInput[2])->second;
+            //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;
+            cmd->thingType = thingType;
+            std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
+          }
+        else if(size == 1)
+        {
+          cmd->thingType = NONE;  
+        }
+        else
+          {
+            cmd->commandType = INVALID;
+          }
+        break;
       }
       
     case UNHIDE:
       {
-	break;
+	      break;
       }
 
     case PEEK:
       {
-	break;
+	      break;
       }
 
     case RUN:
       {
-	break;
+	      break;
       }
 
     case CHECK:
       {
 	// check a thing;
-	break;
+	      break;
       }
 
     case MOVE:
       {
-	//move direction
-	//std::cout<<"dir std::string = "<<parsedInput[1]<<endl;
-	Direction tomove = Room::dirMap.find(parsedInput[1])->second;
-	//std::cout<<"CmdParser::MOVE case:: dir = "<<tomove<<endl;
-	cmd->dir = tomove;
-	break;
+        //move direction
+        //std::cout<<"dir std::string = "<<parsedInput[1]<<endl;
+        Direction tomove = Room::dirMap.find(parsedInput[1])->second;
+        //std::cout<<"CmdParser::MOVE case:: dir = "<<tomove<<endl;
+        cmd->dir = tomove;
+        break;
       }
     case JUMP:
       {
-	if( (size == 3) & (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
-	  {
-	    cmd->prep = Thing::relMap.find(parsedInput[1])->second;
-	    ThingType thingType  = Thing::thingMap.find(parsedInput[2])->second;
-	    //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;                                                                                                           
-	    cmd->thingType = thingType;
-	  }
-	else
-	  {
-	    cmd->thingType = NONE;
-	  }
-	
-	break;
+        if( (size == 3) & (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
+          {
+            cmd->prep = Thing::relMap.find(parsedInput[1])->second;
+            ThingType thingType  = Thing::thingMap.find(parsedInput[2])->second;
+            //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;                                                                                                           
+            cmd->thingType = thingType;
+          }
+        else
+          {
+            cmd->thingType = NONE;
+          }
+        
+        break;
       
       }
     case INVALID:
       {
-	break;
+	      break;
       }
 
 
     default:
       {
-	break;
+	      break;
       }
       
       

@@ -109,12 +109,16 @@ void JumpingState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
       case HIDE:
 	{
 	  stopJumping(player);
+	  
 	  //std::cout<<"in HIDE case"<<endl;
-	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>(player);
-	  hiddenState->setLocationID(stateStack->top()->getLocationID());
-	  //std::cout<<"in room"<<Room::roomTypeMap.find(this->location->getRoomType())->second<<endl;
+	  
 	  shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
-	  hiddenState->thing = location->getThingOfType(cmd->thingType);
+	  shared_ptr<Thing> thing =  location->getThingOfType(cmd->thingType);
+	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>(player, thing);
+	  hiddenState->setLocationID(location->getID());
+	  //std::cout<<"in room"<<Room::roomTypeMap.find(this->location->getRoomType())->second<<endl;
+	  player->setPlayerDisplay(HIDDEN);
+	 
 	  stateStack->pop();
 	  stateStack->push(hiddenState);
 	
@@ -134,7 +138,7 @@ void JumpingState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
       case UNHIDE:
 	{
 	  //CAN'T UNHIDE
-	  std::cout<<"can't unhide in Entered State"<<endl;
+	  std::cout<<"can't unhide in Jumping State"<<endl;
 	  break;
 	}
       case INVALID:

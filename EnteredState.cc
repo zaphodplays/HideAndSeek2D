@@ -42,6 +42,11 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 {
   switch(cmd->commandType)
     {
+	case FOUND:
+	{
+		std::cout<<player->getName()<<" has been FOUND"<<endl;	
+		
+	}
     case MOVE:
       {
 	    std::cout<<player->getName()<<" in MOVE case"<<endl;
@@ -113,11 +118,19 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
       case HIDE:
 	{
 	  std::cout<<"in HIDE case"<<endl;
-	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>(player);
+	  shared_ptr<Thing> thing = Room::roomIDMap->find(getLocationID())->second->getThingOfType(cmd->thingType);
+	  if(thing == nullptr)
+	  {
+		   cout<<"thing to hide cannot be null"<<endl;
+		   break;
+	  }
+	  	
+	  shared_ptr<HiddenState> hiddenState = make_shared<HiddenState>(player, thing);
 	  hiddenState->setLocationID(stateStack->top()->getLocationID());
 	  //std::cout<<"in room"<<Room::roomTypeMap.find(this->location->getRoomType())->second<<endl;
+	 
+	  thing->addPlayer(player->getName());
 	
-	  hiddenState->thing = Room::roomIDMap->find(getLocationID())->second->getThingOfType(cmd->thingType);
 	  stateStack->push(hiddenState);
 	  player->setPlayerDisplay(HIDDEN);
 	  break;

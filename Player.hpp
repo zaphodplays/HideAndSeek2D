@@ -50,6 +50,7 @@ public:
   shared_ptr<Point2d> getCenter();
   void setCenter(int x, int y);
 
+  
   void setPlayerDisplay(PlayerDisplay pd);
   //void fixCenter();
 
@@ -107,6 +108,8 @@ public:
 
 private:
   shared_ptr<Point2d> center;
+ 
+ 
   std::string filename;
   PlayerDisplay playerDisplay;
   int framenum;

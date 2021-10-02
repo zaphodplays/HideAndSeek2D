@@ -11,7 +11,7 @@ class HiddenState : public RoleState
 {
 public:
 
-  HiddenState(shared_ptr<Player> player);
+  HiddenState(shared_ptr<Player> player, shared_ptr<Thing> thing);
 
   typedef shared_ptr<vector<CommandType> > AllowedCmds;
   static AllowedCmds allowedCommands;
@@ -69,6 +69,10 @@ public:
 
   virtual void update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr< RoleState > > > stateStack, shared_ptr<Player> player);
 
+ 
+  shared_ptr<Thing> getThing();
+
+
 protected:
 
   virtual shared_ptr<vector<CommandType> > getAllowedCommands();
@@ -80,6 +84,7 @@ protected:
 private:
   const std::string TRANSPARENT = "transparent.png";
   shared_ptr<Player> player;
+  shared_ptr<Thing> thing;
 
 };
 #endif
