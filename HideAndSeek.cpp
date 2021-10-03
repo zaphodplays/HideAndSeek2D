@@ -8,6 +8,7 @@
 #include "Room.hpp"
 #include "Thing.hpp"
 #include "Player.hpp"
+#include "FoundState.hpp"
 #include "UserPlayer.hpp"
 #include "AIPlayer.hpp"
 #include "CommandParser.hpp"
@@ -23,6 +24,8 @@
 using json = nlohmann::json;
 
 using namespace std;
+
+
 
 shared_ptr<Thing> createThing(json &jthing);
 shared_ptr<Room> createRoom(json &jroom);
@@ -183,7 +186,7 @@ shared_ptr<Room> createRoom(json &jroom)
 	
 }
 
-void setupPlayer(shared_ptr<Player> player, Engine *engine, shared_ptr<Room> hall)
+void setupPlayer(shared_ptr<Player> player, Engine *engine, shared_ptr<Room> room)
 {
 	if(player == nullptr)
 		{
@@ -191,11 +194,11 @@ void setupPlayer(shared_ptr<Player> player, Engine *engine, shared_ptr<Room> hal
 			return;
 		}
 	player->setEngine(engine);
-	player->centralhall = hall;
+	player->centralhall = room;
 	
 	if(!player->isAI())
-		hall->setUserPlayerPresent();
-	hall->addPlayer(player->getName());	
+		room->setUserPlayerPresent();
+	room->addPlayer(player->getName());	
 }
 
 void EngineMain()
@@ -214,10 +217,12 @@ void EngineMain()
 	createWorld(user, aiplayers);
 	std::cout<<"finished creating world"<<endl;
 	map<int, shared_ptr<Room> >::iterator roomitor = Room::roomIDMap->begin();
+	vector<shared_ptr<Room> > rooms;
 	for(; roomitor != Room::roomIDMap->end(); roomitor++)
 	{
 		int id = roomitor->first;
 		shared_ptr<Room> room = roomitor->second;
+		rooms.push_back(room);
 		std::cout<<"room id = "<<id<<endl;
 		
 	}
@@ -238,7 +243,9 @@ void EngineMain()
 	{
 		shared_ptr<AIPlayer> aiplayer = *pitor;
 		shared_ptr<Player> aplayer = static_pointer_cast<Player>(aiplayer);
-		setupPlayer(aplayer, engine, hall);
+		int random_room_idx = rand()%rooms.size();
+		
+		setupPlayer(aplayer, engine, rooms[random_room_idx]);
 		pitor++;
 	}
 	engine->drawText(hellotext.c_str(), 200, 700);
@@ -338,7 +345,10 @@ void EngineMain()
 		{
 			
 			shared_ptr<Player> aiplayer = *pitor;
-			//aiplayer->printState(x,y);
+			shared_ptr<RoleState> state = aiplayer->role->stateStack->top();
+			shared_ptr<FoundState> foundState(dynamic_pointer_cast<FoundState>(state) );
+			if(foundState != nullptr)
+				aiplayer->printState(x,y);
 			y = y + 30;
 			pitor++;	
 		}
