@@ -52,6 +52,8 @@ typedef enum {
 	      MOVE,
 	      JUMP,
         STOP,
+        WAITANDCOUNT,
+        SEEK,
         FOUND,
 	      CMDCount
 } CommandType;

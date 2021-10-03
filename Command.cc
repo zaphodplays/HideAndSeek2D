@@ -13,6 +13,8 @@ const std::string Command::move = "move";
 const std::string Command::jump = "jump";
 const std::string Command::stop = "stop";
 const std::string Command::found = "found";
+const std::string Command::seek = "seek";
+const std::string Command::waitandcount = "waitandcount";
 
 
 Command::enumMap Command::strenum_map = initMap();

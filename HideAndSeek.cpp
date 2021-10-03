@@ -256,16 +256,15 @@ void EngineMain()
 	double btime = 0;
 	double utime = 0;
 	double seqtime = 0;
-	const double SEQSECS = 2;
-	const double CMDSECS = 2;
+	const double SEQSECS = 0.1;
+	const double CMDSECS = 1;
 	const double FPS = 0.1;
 	
 	
 	while (engine->startFrame())
 	{
 		double timestamp = engine->getStopwatchElapsedSeconds();
-		if(timestamp - ftime < 0.8)
-			continue;
+		
 		
 		//Engine::PlayerInput keys;
 		std::string input;
@@ -280,7 +279,7 @@ void EngineMain()
 		std::cout<<"just after cmd input, cmd type is "<<cmdUser->commandType<<endl;
 		user->processCommand(cmdUser);
 		std::cout<<"after process cmd"<<endl;
-		if(timestamp - ftime > SEQSECS)
+		if(timestamp - utime > SEQSECS)
 		  {
 			list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
 			while(pitor != aiplayers.end())
@@ -324,20 +323,22 @@ void EngineMain()
 		     btime = timestamp;
 		     
 		}
+		if(timestamp - ftime < 0.001)
+			continue;
 		std::cout<<"just before print state invoc"<<endl;
 		user->printState(200,510);
 		std::cout<<"just before displaying location id"<<endl;
 		std::cout<<user->role->stateStack->top()->getLocationID()<<endl;
 		
 		Room::roomIDMap->find(user->role->stateStack->top()->getLocationID())->second->display(engine);
-
+		ftime = timestamp;
 		int x = 200, y = 540;
 		pitor = aiplayers.begin();
 		while(pitor != aiplayers.end())
 		{
 			
 			shared_ptr<Player> aiplayer = *pitor;
-			aiplayer->printState(x,y);
+			//aiplayer->printState(x,y);
 			y = y + 30;
 			pitor++;	
 		}

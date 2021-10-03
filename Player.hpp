@@ -40,7 +40,7 @@ public:
   std::string getFilename();
  void setFilename(std::string &name);
  
-
+  Engine *getEngine();
   void setEngine(Engine *engine);
   void printState(int x, int y);
   virtual void displayState();

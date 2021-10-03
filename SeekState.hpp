@@ -30,14 +30,14 @@ public:
   {
     AllowedCmds cmds = make_shared<vector<CommandType> >();
     cmds->push_back(LOOK);
-    cmds->push_back(LIGHTS);
-    cmds->push_back(HIDE);
-    cmds->push_back(PEEK);
-    cmds->push_back(STOP);
-    cmds->push_back(UNHIDE);
+    
+    cmds->push_back(SEEK);
+   
+
+    
     cmds->push_back(MOVE);
     cmds->push_back(CHECK);
-    cmds->push_back(JUMP);
+    
     
     return cmds;
   }

@@ -1,6 +1,7 @@
 #ifndef _PEEKSTATE_H
 #define _PEEKSTATE_H
 #include "RoleState.hpp"
+#include "FoundState.hpp"
 
 
 class PeekState : public RoleState 
@@ -53,7 +54,7 @@ public:
   {
     PeekStatePersonalityCommandMap eMap;
     vector<int> vcare;
-    vcare.push_back(6);vcare.push_back(9);vcare.push_back(19);
+    vcare.push_back(6);vcare.push_back(7);vcare.push_back(19);
     vector<int> vfun;
     vfun.push_back(5);vfun.push_back(10);vfun.push_back(15);
     vector<int> vrisk;

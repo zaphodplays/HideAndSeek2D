@@ -1,7 +1,9 @@
 #include "RoleState.hpp"
+#include "Hider.hpp"
 #include <iostream>
 using namespace std;
 
+class Hider;
 RoleState::RoleState()
 {
   std::cout<<"constructing RoleState"<<endl;
@@ -9,6 +11,21 @@ RoleState::RoleState()
   std::cout<<"finished constructing RoleState"<<endl;
   
 }
+
+/*
+void RoleState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<RoleState> > > stateStack, shared_ptr<Player> player)
+{
+  shared_ptr<Hider> hider(dynamic_pointer_cast<Hider>(player->role) );
+  if(hider != nullptr)
+  {
+    switch(cmd->commandType)
+    {
+      case FOUND:
+
+    }
+  }
+}
+*/
 
 void RoleState::initAnimationSequence()
 {
@@ -110,9 +127,20 @@ shared_ptr<Command> RoleState::buildAICommand(CommandType commandType)
 
       case CHECK:
         {
+          shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
+          int thingsize = location->things->size();
+          int rnum = rand() % (thingsize);
+          //std::cout<<"HIDE::rnum = "<<rnum<<endl;
+	        rnum ? rnum = rnum * 1 : ++rnum;
+          shared_ptr<Thing> thing = (*(location->things))[rnum ];
+          
+          cmd->thingType = thing->thingtype; 
           break;
         }
-
+      case SEEK:
+      {
+        break;
+      }
       case MOVE:
         {
 	        shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
@@ -126,7 +154,7 @@ shared_ptr<Command> RoleState::buildAICommand(CommandType commandType)
 	    {
 	      break;
 	    }
-
+    
       default:
         {
           break;

@@ -36,6 +36,19 @@ void HiddenState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr<
   //std::cout<<"HiddenState in room "<<Room::roomTypeMap.find(location->getRoomType())->second<<endl;
   switch(cmd->commandType)
     {
+    case FOUND:
+    {
+      std::cout<<player->getName()<<" has been FOUND"<<endl;	
+      shared_ptr<RoleState> foundState = make_shared<FoundState>(player);
+      foundState->setLocationID(this->getLocationID());
+      thing->removePlayer(player->getName());
+      thing = nullptr;
+      player = nullptr;
+      stateStack->pop();
+      stateStack->push(foundState);
+      break;
+      
+    }
     case LOOK:
       {
 	//std::cout<<"You are hiding in "<< thing->thingtype<<endl;

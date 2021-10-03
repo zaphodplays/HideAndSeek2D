@@ -45,6 +45,10 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
       {
 	break;
       }
+    case SEEK:
+    {
+      break;
+    }
 
     case LOOK:
       {
@@ -97,6 +101,22 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
     case CHECK:
       {
 	// check a thing;
+        if( (size == 2) && (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
+          {
+            
+            ThingType thingType  = Thing::thingMap.find(parsedInput[1])->second;
+            //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;
+            cmd->thingType = thingType;
+            std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
+          }
+        else if(size == 1)
+        {
+          cmd->thingType = NONE;  
+        }
+        else
+          {
+            cmd->commandType = INVALID;
+          }
 	      break;
       }
 

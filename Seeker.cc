@@ -22,3 +22,8 @@ void Seeker::processCommand(shared_ptr<Command> cmd, shared_ptr<Player> player)
   
   
 }
+
+shared_ptr<RoleState> Seeker::getInitialState(shared_ptr<Player> player)
+{
+  return make_shared<SeekerWaitState>(player, player->getEngine());
+}

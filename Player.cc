@@ -173,6 +173,11 @@ void Player::setColour(uint32_t dresscolour)
     */
 }
 
+Engine* Player::getEngine()
+{
+  return engine;
+}
+
 void Player::setEngine(Engine *engine)
 {
   this->engine = engine;
@@ -215,11 +220,11 @@ void Player::processCommand(shared_ptr<Command> cmd)
 void Player::initRoleState()
 {
   
-  shared_ptr<RoleState> state = make_shared<EnteredState>(shared_from_this());
+  shared_ptr<RoleState> state = role->getInitialState(shared_from_this());
   state->setLocationID(centralhall->getID());
   role->initStateStack(state);
 }
-
+  
 void Player::initializePersonality(std::string type)
 {
   //do nothing really

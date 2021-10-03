@@ -26,6 +26,8 @@ public:
 
   virtual void processCommand(shared_ptr<Command> cmd, shared_ptr<Player> player) = 0;
 
+  virtual shared_ptr<RoleState> getInitialState(shared_ptr<Player> player) = 0;
+
   void initStateStack(shared_ptr<RoleState> initialState);
 
   typedef map<std::string, shared_ptr<Role> > RoleTable;

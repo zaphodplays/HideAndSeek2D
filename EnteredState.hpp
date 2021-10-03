@@ -3,6 +3,7 @@
 #include "RoleState.hpp"
 #include "HiddenState.hpp"
 #include "JumpingState.hpp"
+#include "FoundState.hpp"
 #include <vector>
 
 class HiddenState;
@@ -48,7 +49,7 @@ public:
   {
     EnteredStatePersonalityCommandMap eMap;
     vector<int> vcare;
-    vcare.push_back(3);vcare.push_back(5);vcare.push_back(12);vcare.push_back(15);vcare.push_back(16); //These are cumulative sums
+    vcare.push_back(1);vcare.push_back(2);vcare.push_back(16);vcare.push_back(18);vcare.push_back(19); //These are cumulative sums
     vector<int> vfun;
     vfun.push_back(3);vfun.push_back(7);vfun.push_back(10);vfun.push_back(15);vfun.push_back(20);
     vector<int> vrisk;

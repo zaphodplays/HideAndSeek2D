@@ -39,11 +39,11 @@ shared_ptr<vector<CommandType> > SeekState::getAllowedCommands()
 
 std::string SeekState::printState()
 {
-  std::cout<<"in jump print state"<<endl;
-  std::string print = "Jumping in room ";
+  std::cout<<"in seek print state"<<endl;
+  std::string print = "Seeking in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();
-  std::cout<<"end of jump print state"<<endl;
+  std::cout<<"end of seek print state"<<endl;
   return print;
 }
 
@@ -63,6 +63,8 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 {
   switch(cmd->commandType)
     {
+
+	
     case MOVE:
       {
 	//stopJumping(player);
@@ -75,7 +77,7 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 	  {
 	    
 	    shared_ptr<Room> newLocation = currentLocation->move(cmd->dir);
-	    shared_ptr<RoleState> newstate = make_shared<EnteredState>(player);
+	    shared_ptr<RoleState> newstate = make_shared<SeekState>(player);
 	    if(newLocation->getID() != currentLocation->getID())
               {
                 currentLocation->removePlayer(player->getName());
@@ -83,7 +85,7 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
               }
 	    newstate->setLocationID(newLocation->getID());
 	    
-	    stateStack->pop();
+	   
 	    stateStack->push(newstate);
 	    
 	  }
@@ -134,6 +136,11 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 	  	//std::cout<<"in room"<<Room::roomTypeMap.find(this->location->getRoomType())->second<<endl;
 	  	shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
 	  	shared_ptr<Thing> thing = location->getThingOfType(cmd->thingType);
+		if(thing == nullptr)
+	  {
+		   cout<<"thing to hide cannot be null"<<endl;
+		   break;
+	  }
 		if(thing->isEmpty())
 		{
 
@@ -151,6 +158,7 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 				foundCommand->commandType = FOUND;
 				player->processCommand(foundCommand);
 			}
+			pitor++;
 		}
 		
 	}
@@ -161,7 +169,23 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 	}
       default:
       {
-		std::cout<<"command logic unimplemented"<<endl;
+		shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
+		shared_ptr<std::set<std::string> > players = location->inhabitants;
+		std::set<std::string>::iterator pitor = players->begin();
+		while( pitor != players->end())
+		{
+			if(player->getName().compare(*pitor) != 0)
+			{
+				//this is a hider role player, catch him
+				cout<<"FOUND hider "<<player->getName()<<endl;
+				shared_ptr<Player> hplayer = Player::playerNameMap->find(*pitor)->second;
+				shared_ptr<Command> fcmd = make_shared<Command>();
+				fcmd->commandType = FOUND;
+				hplayer->processCommand(fcmd);
+			}
+			pitor++;
+		}
+		
 		break;
       }
 
@@ -175,7 +199,7 @@ shared_ptr<AnimationSequence> SeekState::initSeekAnimationSequence()
   shared_ptr<AnimationSequence> jumpseq = make_shared<AnimationSequence>();
   
   shared_ptr<DisplayObject> jump_down = make_shared<DisplayObject>(filename, player->getCenter()->x, player->getCenter()->y);
-  shared_ptr<DisplayObject> jump_up = make_shared<DisplayObject>(filename, player->getCenter()->x, player->getCenter()->y-40);
+  shared_ptr<DisplayObject> jump_up = make_shared<DisplayObject>(filename, player->getCenter()->x, player->getCenter()->y);
   
   jumpseq->addImage(jump_up);
   jumpseq->addImage(jump_down);

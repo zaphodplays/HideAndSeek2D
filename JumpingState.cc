@@ -70,6 +70,18 @@ void JumpingState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 {
   switch(cmd->commandType)
     {
+	
+	case FOUND:
+    {
+      std::cout<<player->getName()<<" has been FOUND"<<endl;	
+      shared_ptr<RoleState> foundState = make_shared<FoundState>(player);
+      foundState->setLocationID(this->getLocationID());
+      
+      stateStack->pop();
+      stateStack->push(foundState);
+      break;
+      
+    }
     case MOVE:
       {
 	//stopJumping(player);
@@ -161,9 +173,10 @@ shared_ptr<AnimationSequence> JumpingState::initJumpAnimationSequence()
   
   shared_ptr<DisplayObject> jump_down = make_shared<DisplayObject>(filename, player->getCenter()->x, player->getCenter()->y);
   shared_ptr<DisplayObject> jump_up = make_shared<DisplayObject>(filename, player->getCenter()->x, player->getCenter()->y-40);
-  
-  jumpseq->addImage(jump_up);
-  jumpseq->addImage(jump_down);
+  for(int i = 0; i < 100; i++)
+	jumpseq->addImage(jump_up);	
+  for(int j = 0; j < 100; j++)
+  	jumpseq->addImage(jump_down);
   return jumpseq;
 }
 

@@ -45,6 +45,10 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	case FOUND:
 	{
 		std::cout<<player->getName()<<" has been FOUND"<<endl;	
+		shared_ptr<RoleState> foundState = make_shared<FoundState>(player);
+		foundState->setLocationID(this->getLocationID());
+		stateStack->push(foundState);
+		break;
 		
 	}
     case MOVE:
@@ -155,6 +159,8 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	  std::cout<<"can't unhide in Entered State"<<endl;
 	  break;
 	}
+	
+	
       case INVALID:
 	{
 	  break;

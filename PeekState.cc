@@ -54,6 +54,19 @@ void PeekState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr< R
   //std::cout<<"PEEKSTATE in room "<<Room::roomTypeMap.find(location->getRoomType())->second<<endl;
   switch(cmd->commandType)
 {
+ case FOUND:
+    {
+      std::cout<<player->getName()<<" has been FOUND"<<endl;	
+      shared_ptr<RoleState> foundState = make_shared<FoundState>(player);
+      foundState->setLocationID(this->getLocationID());
+      thing->removePlayer(player->getName());
+      thing = nullptr;
+      stateStack->pop();
+      stateStack->pop();
+      stateStack->push(foundState);
+      break;
+      
+    }
  case LOOK:
    {
      std::cout<<"you are peeking"<<endl;
@@ -99,9 +112,13 @@ shared_ptr<AnimationSequence> PeekState::initPeekAnimationSequence()
   int x = rand()%50;
   int y = rand()%50;
   shared_ptr<DisplayObject> eyes = make_shared<DisplayObject>(EYES, thing->getCenter()->x+ x, thing->getCenter()->y+ y);
+  
   shared_ptr<DisplayObject> noeyes = make_shared<DisplayObject>(NOEYES, thing->getCenter()->x+ x, thing->getCenter()->y+ y);
-  peekseq->addImage(eyes);
-  peekseq->addImage(noeyes);
+  for(int i = 0; i < 100; i++)
+    peekseq->addImage(eyes);
+  for(int i = 0; i < 100; i ++)
+    peekseq->addImage(noeyes);
+
   return peekseq;
 }
 

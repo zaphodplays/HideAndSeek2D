@@ -22,3 +22,8 @@ void Hider::processCommand(shared_ptr<Command> cmd, shared_ptr<Player> player)
   currentState->update(cmd, stateStack, player);
 
 }
+
+shared_ptr<RoleState> Hider::getInitialState(shared_ptr<Player> player)
+{
+  return make_shared<EnteredState>(player);
+}

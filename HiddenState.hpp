@@ -47,7 +47,7 @@ public:
   {
     HiddenStatePersonalityCommandMap eMap;
     vector<int> vcare;
-    vcare.push_back(6);vcare.push_back(9);vcare.push_back(12); 
+    vcare.push_back(6);vcare.push_back(7);vcare.push_back(15); 
     vector<int> vfun;    
     vfun.push_back(3);vfun.push_back(10);vfun.push_back(20);
     vector<int> vrisk;
