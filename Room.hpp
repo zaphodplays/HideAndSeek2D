@@ -24,7 +24,7 @@ class Room :public enable_shared_from_this<Room> {
 
 
 public:
-  Room(std::string name, std::string filename, int x, int y);
+  Room(int id, std::string name, std::string filename, int x, int y);
   ~Room();
 
 
@@ -62,6 +62,8 @@ public:
 
   void addPlayer(std::string playername);
   void removePlayer(std::string playername);
+
+  vector<shared_ptr<Player> > getVisiblePlayers();
 
   void addWall(DoorType doorType, shared_ptr<Door>);
 
@@ -154,6 +156,9 @@ public:
   
   static void setRoomInDirection(Direction direction, shared_ptr<Room> room1, shared_ptr<Room> room2)
   {
+    if(room1->directionMap->find(direction) != room1->directionMap->end() )
+      return;
+    
     (*(room1->directionMap))[direction] = room2;
     (*(room2->directionMap))[(Room::dirPairsMap.find(direction))->second] = room1;
     

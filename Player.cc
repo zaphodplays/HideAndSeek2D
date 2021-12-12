@@ -221,7 +221,7 @@ void Player::initRoleState()
 {
   
   shared_ptr<RoleState> state = role->getInitialState(shared_from_this());
-  state->setLocationID(centralhall->getID());
+  state->setLocationID(this->centralhall->getID());
   role->initStateStack(state);
 }
   

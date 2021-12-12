@@ -85,7 +85,9 @@ shared_ptr<Player> createPlayer(json &jplayer)
 	std::string filename = jplayer["file"];
 	player->setFilename(filename);
 	player->setCenter( jplayer["x"].get<int>(), jplayer["y"].get<int>() );
-	shared_ptr<Room> hall = Room::roomIDMap->find(1)->second;
+	int random_room_idx = rand()%(Room::roomIDMap->size());
+	shared_ptr<Room> hall = Room::roomIDMap->find(random_room_idx)->second;
+	assert(hall != nullptr);
 	player->centralhall = hall;
 	std::string rolename = jplayer["role"];
 	player->role = Role::makeRole(rolename);
@@ -100,6 +102,10 @@ shared_ptr<Player> createPlayer(json &jplayer)
 	personality = jplayer["personality"];
 	
 	player->initializePersonality(personality);
+
+	if(!player->isAI())
+		hall->setUserPlayerPresent();
+	hall->addPlayer(player->getName());
 	return player;
 	
 }
@@ -164,8 +170,10 @@ shared_ptr<Room> createRoom(json &jroom)
 	std::cout<<"room name = "<<jroom["name"]<<endl;
 	std::string name = jroom["name"];
 	std::string filename = jroom["file"];
-	shared_ptr<Room> aroom = make_shared<Room>(name, filename, 0, 0);
-	aroom->setID(jroom["id"]);
+	int id = jroom["id"];
+	shared_ptr<Room> aroom = make_shared<Room>(id, name, filename, 0, 0);
+	//aroom->setID(jroom["id"]);
+	(*(Room::roomIDMap))[id] = aroom;
 	
 	std::cout<<"name = "<<aroom->getName()<<endl;
 	
@@ -186,7 +194,7 @@ shared_ptr<Room> createRoom(json &jroom)
 	
 }
 
-void setupPlayer(shared_ptr<Player> player, Engine *engine, shared_ptr<Room> room)
+void setupPlayer(shared_ptr<Player> player, Engine *engine, int roomid)
 {
 	if(player == nullptr)
 		{
@@ -194,7 +202,9 @@ void setupPlayer(shared_ptr<Player> player, Engine *engine, shared_ptr<Room> roo
 			return;
 		}
 	player->setEngine(engine);
+	shared_ptr<Room> room = Room::roomIDMap->find(roomid)->second;
 	player->centralhall = room;
+	player->initRoleState();
 	
 	if(!player->isAI())
 		room->setUserPlayerPresent();
@@ -217,37 +227,40 @@ void EngineMain()
 	createWorld(user, aiplayers);
 	std::cout<<"finished creating world"<<endl;
 	map<int, shared_ptr<Room> >::iterator roomitor = Room::roomIDMap->begin();
-	vector<shared_ptr<Room> > rooms;
+	vector<int > roomids;
 	for(; roomitor != Room::roomIDMap->end(); roomitor++)
 	{
 		int id = roomitor->first;
-		shared_ptr<Room> room = roomitor->second;
-		rooms.push_back(room);
-		std::cout<<"room id = "<<id<<endl;
+		if(id != 1)
+			roomids.push_back(id);
+		//std::cout<<"room id = "<<id<<endl;
 		
 	}
 	
-	shared_ptr<Room> hall = Room::roomIDMap->find(1)->second;
-	hall->setUserPlayerPresent();
+	//shared_ptr<Room> hall = Room::roomIDMap->find(1)->second;
+	//hall->setUserPlayerPresent();
 	std::cout<<"FINISHED CONNECTING ROOMS"<<endl;
 	engine->drawText(hellotext.c_str(), 200, 650);
+	/*
 	shared_ptr<Player> player = shared_ptr<Player>(user);
 	if(player == nullptr)
-		{
-			cout<<"casted player is null"<<endl;
-			return;
-		}
-	setupPlayer(player, engine, hall);
+	{
+		cout<<"casted player is null"<<endl;
+		return;
+	}
+	setupPlayer(player, engine, 1);
 	list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
 	while(pitor != aiplayers.end())
 	{
 		shared_ptr<AIPlayer> aiplayer = *pitor;
 		shared_ptr<Player> aplayer = static_pointer_cast<Player>(aiplayer);
-		int random_room_idx = rand()%rooms.size();
+		int random_room_idx = rand()%roomids.size();
 		
-		setupPlayer(aplayer, engine, rooms[random_room_idx]);
+		setupPlayer(aplayer, engine, roomids[random_room_idx]);
+		
 		pitor++;
 	}
+	*/
 	engine->drawText(hellotext.c_str(), 200, 700);
 	
 	shared_ptr<Command> cmdUser;
@@ -263,9 +276,9 @@ void EngineMain()
 	double btime = 0;
 	double utime = 0;
 	double seqtime = 0;
-	const double SEQSECS = 0.1;
+	const double SEQSECS = 0.05;
 	const double CMDSECS = 1;
-	const double FPS = 0.1;
+	const double FPS = 0.01;
 	
 	
 	while (engine->startFrame())
@@ -340,7 +353,7 @@ void EngineMain()
 		Room::roomIDMap->find(user->role->stateStack->top()->getLocationID())->second->display(engine);
 		ftime = timestamp;
 		int x = 200, y = 540;
-		pitor = aiplayers.begin();
+		list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
 		while(pitor != aiplayers.end())
 		{
 			

@@ -122,4 +122,9 @@ shared_ptr<AnimationSequence> PeekState::initPeekAnimationSequence()
   return peekseq;
 }
 
+bool PeekState::isPlayerVisible()
+{
+  return false;
+}
+
 

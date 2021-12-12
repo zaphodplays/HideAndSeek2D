@@ -32,6 +32,7 @@ public:
   virtual shared_ptr<vector<CommandType> > getAllowedCommands() = 0;
   virtual shared_ptr<vector<int> > getWeights(AIPersonalityType personality) = 0;
   virtual GameTimeType getGameTimeType();
+  virtual bool isPlayerVisible();
 public:
   shared_ptr<Command> getAICommand(AIPersonalityType personality);
 

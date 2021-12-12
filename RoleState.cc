@@ -146,7 +146,11 @@ shared_ptr<Command> RoleState::buildAICommand(CommandType commandType)
 	        shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
           int rnum = rand() % (location->allowedDirections->size());
 	        if(rnum >= location->allowedDirections->size())
-	          std::cout<<"WRONG!!!::MOVE::rnum = "<<rnum<<endl;
+          {
+            std::cout<<"WRONG!!!::MOVE::rnum = "<<rnum<<endl;
+            break;
+          }
+	          
           cmd->dir = (*(location->allowedDirections))[rnum];
           break;
         }
@@ -172,6 +176,11 @@ void RoleState::setLocationID(int id)
 int RoleState::getLocationID()
 {
   return locationid;
+}
+
+bool RoleState::isPlayerVisible()
+{
+  return true;
 }
 
 

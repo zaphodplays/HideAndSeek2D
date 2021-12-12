@@ -29,8 +29,10 @@ DoorType Room::lfrbud[DoorCount] = {LEFT, FRONT, RIGHT, BACK, TOP, BOTTOM};
 //shared_ptr<DisplayObject> Room::openroom = Room::initOpenRoom();
 
 
-Room::Room(std::string name, std::string filename, int x, int y)
+Room::Room(int id, std::string name, std::string filename, int x, int y)
 {
+  assert(roomIDMap->find(id) == roomIDMap->end());
+  setID(id);
   userPresent = false;
   this->name = name;
   displayObject = make_shared<DisplayObject>(filename, x, y);
@@ -42,7 +44,8 @@ Room::Room(std::string name, std::string filename, int x, int y)
   wallTypeDirMap = make_shared<map<Direction, DoorType> >();
   dirWallTypeMap = make_shared<map<DoorType, Direction> >();
   wallDoorMap = make_shared<map<DoorType, shared_ptr<Door> > >();
-    
+  
+  //(*roomIDMap)[id] = shared_from_this(); 
 }
 
 Room::~Room()
@@ -79,7 +82,7 @@ std::string Room::getFilename()
 void Room::setID(int id)
 {
   this->id = id;
-  (*roomIDMap)[id] = shared_from_this();
+  //(*roomIDMap)[id] = shared_from_this();
 }
 
 
@@ -224,6 +227,19 @@ void Room::listThings()
 shared_ptr<vector<shared_ptr<Thing> > > Room::getThings()
 {
   return (things);
+}
+
+vector<shared_ptr<Player> > Room::getVisiblePlayers()
+{
+  vector<shared_ptr<Player> > visiblePlayers;
+  for(auto itr = inhabitants->begin(); itr != inhabitants->end(); itr++)
+  {
+    string someone = *itr;
+    shared_ptr<Player> player = Player::playerNameMap->find(someone)->second;
+    if(player->role->stateStack->top()->isPlayerVisible())
+      visiblePlayers.push_back(player);
+  }
+  return visiblePlayers;
 }
 
 bool Room::hasLight()

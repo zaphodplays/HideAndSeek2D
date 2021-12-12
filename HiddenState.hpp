@@ -81,6 +81,8 @@ protected:
 
   virtual void initAnimationSequence();
 
+  virtual bool isPlayerVisible() override;
+
 private:
   const std::string TRANSPARENT = "transparent.png";
   shared_ptr<Player> player;

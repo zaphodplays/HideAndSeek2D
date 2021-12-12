@@ -153,11 +153,12 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 		{
 			std::string pname = player->getName();
 			if(pname.compare(*pitor) == 0)
-			{
-				shared_ptr<Command> foundCommand = make_shared<Command>();
-				foundCommand->commandType = FOUND;
-				player->processCommand(foundCommand);
-			}
+				continue;
+			shared_ptr<Player> someone = Player::playerNameMap->find(*pitor)->second;
+			shared_ptr<Command> foundCommand = make_shared<Command>();
+			foundCommand->commandType = FOUND;
+			someone->processCommand(foundCommand);
+			
 			pitor++;
 		}
 		
@@ -170,20 +171,16 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
       default:
       {
 		shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
-		shared_ptr<std::set<std::string> > players = location->inhabitants;
-		std::set<std::string>::iterator pitor = players->begin();
-		while( pitor != players->end())
+		
+
+		for(shared_ptr<Player> someone : location->getVisiblePlayers())
 		{
-			if(player->getName().compare(*pitor) != 0)
-			{
-				//this is a hider role player, catch him
-				cout<<"FOUND hider "<<player->getName()<<endl;
-				shared_ptr<Player> hplayer = Player::playerNameMap->find(*pitor)->second;
-				shared_ptr<Command> fcmd = make_shared<Command>();
-				fcmd->commandType = FOUND;
-				hplayer->processCommand(fcmd);
-			}
-			pitor++;
+			if(player->getName().compare(someone->getName()) == 0  )
+				continue;
+			cout<<"FOUND hider "<<someone->getName()<<endl;
+			shared_ptr<Command> fcmd = make_shared<Command>();
+			fcmd->commandType = FOUND;
+			someone->processCommand(fcmd);
 		}
 		
 		break;

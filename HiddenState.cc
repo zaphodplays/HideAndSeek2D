@@ -117,3 +117,8 @@ void HiddenState::initAnimationSequence()
   shared_ptr<DisplayObject> hidden = make_shared<DisplayObject>(TRANSPARENT, player->getCenter()->x, player->getCenter()->y);
   sequence->addImage(hidden);
 }
+
+bool HiddenState::isPlayerVisible()
+{
+  return false;
+}

@@ -85,6 +85,8 @@ protected:
 
   virtual void initAnimationSequence();
 
+  virtual bool isPlayerVisible() override;
+
 private:
   static std::string EYES;
   static std::string NOEYES;
