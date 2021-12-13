@@ -65,7 +65,7 @@ shared_ptr<Command> RoleState::getAICommand(AIPersonalityType personality)
     }
   //std::cout<<"idx is "<<idx<<endl;
   shared_ptr<vector<CommandType> > cmds = getAllowedCommands();
-  std::cout<<"command type is "<<((*cmds)[idx])<<endl;
+  //std::cout<<"command type is "<<((*cmds)[idx])<<endl;
   shared_ptr<Command> cmd = buildAICommand( ((*cmds)[idx]));
 
   return cmd;

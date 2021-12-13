@@ -61,6 +61,7 @@ void PeekState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr< R
       foundState->setLocationID(this->getLocationID());
       thing->removePlayer(player->getName());
       thing = nullptr;
+      player = nullptr;
       stateStack->pop();
       stateStack->pop();
       stateStack->push(foundState);
@@ -69,22 +70,25 @@ void PeekState::update(shared_ptr<Command> cmd, shared_ptr< stack< shared_ptr< R
     }
  case LOOK:
    {
-     std::cout<<"you are peeking"<<endl;
+     //std::cout<<"you are peeking"<<endl;
      shared_ptr<RoleState> currentState = stateStack->top();
      shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
 
-     std::cout<<"room is "<<location->getName()<<endl;
+     //std::cout<<"room is "<<location->getName()<<endl;
      break;
    }
  case HIDE:
    {
      std::cout<<"case HIDE"<<endl;
+     thing = nullptr;
+     player = nullptr;
      stateStack->pop();
      break;
    }
  case UNHIDE:
    {
      thing = nullptr;
+     player = nullptr;
      stateStack->pop();
      stateStack->pop();
      break;

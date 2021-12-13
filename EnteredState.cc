@@ -29,7 +29,7 @@ shared_ptr<vector<CommandType> > EnteredState::getAllowedCommands()
 std::string EnteredState::printState()
 {
   std::string print = " in room ";
-  std::cout<<"EnteredState::printState()";
+  //std::cout<<"EnteredState::printState()";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();
   return print;
@@ -53,7 +53,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	}
     case MOVE:
       {
-	    std::cout<<player->getName()<<" in MOVE case"<<endl;
+	    //std::cout<<player->getName()<<" in MOVE case"<<endl;
 	    shared_ptr<RoleState> currentState = stateStack->top();
 	
 	    shared_ptr<Room> currentLocation = Room::roomIDMap->find(currentState->getLocationID())->second;
@@ -66,7 +66,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	      {
 		      shared_ptr<Door> door = currentLocation->getDoorInDirection(cmd->dir);
 		      shared_ptr<Point2d> doorcenter = door->getCenter(getLocationID());
-		      std::cout<<"door center is x = "<<doorcenter->x<<" , y = "<<doorcenter->y<<endl;
+		      //std::cout<<"door center is x = "<<doorcenter->x<<" , y = "<<doorcenter->y<<endl;
 		      shared_ptr<Point2d> origplayercenter = make_shared<Point2d>();
 		      origplayercenter->set(player->getCenter()->x, player->getCenter()->y);
 		      shared_ptr<MovingState> moveToDoor = make_shared<MovingState>(player);
@@ -105,7 +105,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 		//newstate->setLocationID(newLocation->getID());
 		      stateStack->pop();
 		      stateStack->push(moveToDoor);
-		      std::cout<<"finished adding sequence states"<<endl;
+		      //std::cout<<"finished adding sequence states"<<endl;
 	      }
 	  }
 	  break;
@@ -121,7 +121,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	}
       case HIDE:
 	{
-	  std::cout<<"in HIDE case"<<endl;
+	  //std::cout<<"in HIDE case"<<endl;
 	  shared_ptr<Thing> thing = Room::roomIDMap->find(getLocationID())->second->getThingOfType(cmd->thingType);
 	  if(thing == nullptr)
 	  {
@@ -141,14 +141,14 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
 	}
       case JUMP:
 	{
-	  std::cout<<player->getName()<<" REALLY !! YOU WANT TO JUMP ??"<<endl;
+	  //std::cout<<player->getName()<<" REALLY !! YOU WANT TO JUMP ??"<<endl;
 	  shared_ptr<JumpingState> jumpState = make_shared<JumpingState>(player);
 	  jumpState->setLocationID(stateStack->top()->getLocationID());
-    int shiftx = sequence->getCenter()->x - jumpState->sequence->getCenter()->x;
-    int shifty = sequence->getCenter()->y - jumpState->sequence->getCenter()->y;
+      int shiftx = sequence->getCenter()->x - jumpState->sequence->getCenter()->x;
+      int shifty = sequence->getCenter()->y - jumpState->sequence->getCenter()->y;
     //jumpState->sequence->shiftDisplays(shiftx, shifty);
-	  std::cout<<"JUMP::location id is "<<getLocationID()<<endl;
-	  std::cout<<"JUMP::location is "<<Room::roomIDMap->find(getLocationID())->second->getName()<<endl;
+	  //std::cout<<"JUMP::location id is "<<getLocationID()<<endl;
+	  //std::cout<<"JUMP::location is "<<Room::roomIDMap->find(getLocationID())->second->getName()<<endl;
 	  stateStack->push(jumpState);
 	  player->setPlayerDisplay(JUMPING);
 	  break;
@@ -156,7 +156,7 @@ void EnteredState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<R
       case UNHIDE:
 	{
 	  //CAN'T UNHIDE
-	  std::cout<<"can't unhide in Entered State"<<endl;
+	  //std::cout<<"can't unhide in Entered State"<<endl;
 	  break;
 	}
 	

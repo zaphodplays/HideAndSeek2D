@@ -86,6 +86,7 @@ shared_ptr<Player> createPlayer(json &jplayer)
 	player->setFilename(filename);
 	player->setCenter( jplayer["x"].get<int>(), jplayer["y"].get<int>() );
 	int random_room_idx = rand()%(Room::roomIDMap->size());
+	random_room_idx = random_room_idx == 0 ? random_room_idx + 1 : random_room_idx;
 	shared_ptr<Room> hall = Room::roomIDMap->find(random_room_idx)->second;
 	assert(hall != nullptr);
 	player->centralhall = hall;
@@ -241,26 +242,7 @@ void EngineMain()
 	//hall->setUserPlayerPresent();
 	std::cout<<"FINISHED CONNECTING ROOMS"<<endl;
 	engine->drawText(hellotext.c_str(), 200, 650);
-	/*
-	shared_ptr<Player> player = shared_ptr<Player>(user);
-	if(player == nullptr)
-	{
-		cout<<"casted player is null"<<endl;
-		return;
-	}
-	setupPlayer(player, engine, 1);
-	list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
-	while(pitor != aiplayers.end())
-	{
-		shared_ptr<AIPlayer> aiplayer = *pitor;
-		shared_ptr<Player> aplayer = static_pointer_cast<Player>(aiplayer);
-		int random_room_idx = rand()%roomids.size();
-		
-		setupPlayer(aplayer, engine, roomids[random_room_idx]);
-		
-		pitor++;
-	}
-	*/
+	
 	engine->drawText(hellotext.c_str(), 200, 700);
 	
 	shared_ptr<Command> cmdUser;
@@ -294,11 +276,11 @@ void EngineMain()
 		
 
 		//engine.drawSprite(Engine::NewSprite, 644, 420);
-		std::cout<<"just before getting cmd input"<<endl;
+		//std::cout<<"just before getting cmd input"<<endl;
 		cmdUser = user->getCommand();
-		std::cout<<"just after cmd input, cmd type is "<<cmdUser->commandType<<endl;
+		//std::cout<<"just after cmd input, cmd type is "<<cmdUser->commandType<<endl;
 		user->processCommand(cmdUser);
-		std::cout<<"after process cmd"<<endl;
+		//std::cout<<"after process cmd"<<endl;
 		if(timestamp - utime > SEQSECS)
 		  {
 			list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
@@ -345,10 +327,10 @@ void EngineMain()
 		}
 		if(timestamp - ftime < 0.001)
 			continue;
-		std::cout<<"just before print state invoc"<<endl;
+		//std::cout<<"just before print state invoc"<<endl;
 		user->printState(200,510);
-		std::cout<<"just before displaying location id"<<endl;
-		std::cout<<user->role->stateStack->top()->getLocationID()<<endl;
+		//std::cout<<"just before displaying location id"<<endl;
+		//std::cout<<user->role->stateStack->top()->getLocationID()<<endl;
 		
 		Room::roomIDMap->find(user->role->stateStack->top()->getLocationID())->second->display(engine);
 		ftime = timestamp;

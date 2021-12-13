@@ -39,11 +39,11 @@ shared_ptr<vector<CommandType> > SeekState::getAllowedCommands()
 
 std::string SeekState::printState()
 {
-  std::cout<<"in seek print state"<<endl;
+  //std::cout<<"in seek print state"<<endl;
   std::string print = "Seeking in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();
-  std::cout<<"end of seek print state"<<endl;
+  //std::cout<<"end of seek print state"<<endl;
   return print;
 }
 

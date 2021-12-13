@@ -39,11 +39,11 @@ shared_ptr<vector<CommandType> > FoundState::getAllowedCommands()
 
 std::string FoundState::printState()
 {
-  std::cout<<"in found print state"<<endl;
+  //std::cout<<"in found print state"<<endl;
   std::string print = "Found in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();
-  std::cout<<"end of foundprint state"<<endl;
+  //std::cout<<"end of foundprint state"<<endl;
   return print;
 }
 

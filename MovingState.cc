@@ -29,7 +29,7 @@ shared_ptr<RoleState> MovingState::getRoleState()
 
 std::string MovingState::printState()
 {
-	std::cout<<"MovingState::printState()"<<endl;
+	//std::cout<<"MovingState::printState()"<<endl;
   std::string print = "Moving in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();

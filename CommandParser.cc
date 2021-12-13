@@ -5,7 +5,7 @@
 
 shared_ptr<Command> CommandParser::getCommand(const std::string &input)
 {
-  std::cout<<"in commandparser"<<endl;
+  //std::cout<<"in commandparser"<<endl;
   size_t pos = -1;
   size_t start = -1;
   vector<string> parsedInput;
@@ -18,10 +18,10 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
     parsedInput.push_back(word);
     
   }while(pos != std::string::npos);
-  std::cout<<"parsedInput size is "<<parsedInput.size()<<endl;
+  //std::cout<<"parsedInput size is "<<parsedInput.size()<<endl;
   
   std::string cname = parsedInput[0];
-  std::cout<<"cname is "<<cname<<endl;
+  //std::cout<<"cname is "<<cname<<endl;
   std::string preposition;
   std::string target;
   int size = parsedInput.size();
@@ -38,7 +38,7 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
       
     }
       
-  std::cout<<"switching for "<<cname<<endl;
+  //std::cout<<"switching for "<<cname<<endl;
   switch(cmd->commandType)
     {
     case LIST:
@@ -70,7 +70,7 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
             ThingType thingType  = Thing::thingMap.find(parsedInput[2])->second;
             //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;
             cmd->thingType = thingType;
-            std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
+            //std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
           }
         else if(size == 1)
         {
@@ -107,7 +107,7 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
             ThingType thingType  = Thing::thingMap.find(parsedInput[1])->second;
             //std::cout<<"thingType for "<<parsedInput[2]<<" is "<<thingType<<endl;
             cmd->thingType = thingType;
-            std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
+            //std::cout<<"thing:: thingtype is "<<(cmd->thingType)<<endl;
           }
         else if(size == 1)
         {

@@ -14,7 +14,7 @@ HiddenState::HiddenState(shared_ptr<Player> player, shared_ptr<Thing> thing)
 
 std::string HiddenState::printState()
 {
-  std::cout<<"HiddenState::printState"<<endl;
+  //std::cout<<"HiddenState::printState"<<endl;
   std::string print = " in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print= print+ location->getName();
@@ -25,7 +25,7 @@ std::string HiddenState::printState()
 
 void HiddenState::displayState(Engine *engine, shared_ptr<Player> player)
 {
-  std::cout<<player->getName()<<" is hiding"<<endl;
+  //std::cout<<player->getName()<<" is hiding"<<endl;
   sequence->display(engine);
 }
 

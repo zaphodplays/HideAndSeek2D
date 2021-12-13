@@ -147,7 +147,7 @@ void Player::shiftDisplay(int x, int y)
     //}
   
   ((this->role->stateStack->top()->sequence))->shiftDisplays(x, y);
-  std::cout<<"Player::shiftDisplays end"<<endl;
+  //std::cout<<"Player::shiftDisplays end"<<endl;
 }
 
 
@@ -185,9 +185,9 @@ void Player::setEngine(Engine *engine)
 
 void Player::printState(int x, int y)
 {
-  std::cout<<"Player::printState()";
+  //std::cout<<"Player::printState()";
   std::string print = name + ":: " + role->stateStack->top()->printState();
-  std::cout<<"still Player::printState() "<<print<<" "<<endl;
+  //std::cout<<"still Player::printState() "<<print<<" "<<endl;
   print += "x = " + to_string(getCenter()->x) + " y = " + to_string(getCenter()->y);
   engine->drawText(print.c_str(), x, y);
 }

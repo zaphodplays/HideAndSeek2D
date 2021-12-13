@@ -39,11 +39,11 @@ shared_ptr<vector<CommandType> > JumpingState::getAllowedCommands()
 
 std::string JumpingState::printState()
 {
-  std::cout<<"in jump print state"<<endl;
+  //std::cout<<"in jump print state"<<endl;
   std::string print = "Jumping in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + location->getName();
-  std::cout<<"end of jump print state"<<endl;
+  //std::cout<<"end of jump print state"<<endl;
   return print;
 }
 
