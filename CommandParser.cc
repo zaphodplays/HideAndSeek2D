@@ -28,7 +28,9 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
   shared_ptr<Command> cmd;
   if(commandMap.find(cname) != commandMap.end())
     {
-      cmd = commandMap.find(cname)->second;
+      shared_ptr<Command> storeCmd = commandMap.find(cname)->second;
+      cmd = make_shared<Command>();
+      cmd->commandType = storeCmd->commandType;
       //cmd->thingType = CONTINUE;
     }
   else 
@@ -78,6 +80,7 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
         }
         else
           {
+            
             cmd->commandType = INVALID;
           }
         break;
