@@ -8,7 +8,7 @@
             "personality":"",
             "role":"Seeker",
             "name":"megoo",
-            "file":"megoo.png",
+            "file":"masha.png",
             "width":50,
             "height":50
          },
@@ -38,7 +38,7 @@
             "x":400,
             "y":300,
             "type":"AIPlayer",
-            "personality":"careful",
+            "personality":"nutty",
             "role":"Hider",
             "name":"oliver",
             "file":"oliver.png",
@@ -52,7 +52,7 @@
             "personality":"careful",
             "role":"Hider",
             "name":"masha",
-            "file":"masha.png",
+            "file":"megoo.png",
             "width":50,
             "height":50
          },
