@@ -104,7 +104,7 @@ shared_ptr<Command> CommandParser::getCommand(const std::string &input)
     case CHECK:
       {
 	// check a thing;
-        if( (size == 2) && (Thing::relMap.find(parsedInput[1]) != Thing::relMap.end()) && (Thing::thingMap.find(parsedInput[2]) != Thing::thingMap.end()) )
+        if( (size == 2)  && (Thing::thingMap.find(parsedInput[1]) != Thing::thingMap.end()) )
           {
             
             ThingType thingType  = Thing::thingMap.find(parsedInput[1])->second;
