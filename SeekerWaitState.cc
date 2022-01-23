@@ -8,7 +8,7 @@ using namespace std;
 
 SeekerWaitState::AllowedCmds SeekerWaitState::allowedCommands = initAllowedCmds();;
 SeekerWaitState::SeekerWaitStatePersonalityCommandMap SeekerWaitState::jpcMap = initJPCMap();
-const int SeekerWaitState::WAITSECONDS = 30;
+const int SeekerWaitState::WAITSECONDS = 5;
 
 SeekerWaitState::SeekerWaitState(shared_ptr<Player> player, Engine *engine)
 {
@@ -56,7 +56,7 @@ shared_ptr<vector<CommandType> > SeekerWaitState::getAllowedCommands()
 std::string SeekerWaitState::printState()
 {
   std::cout<<"in found print state"<<endl;
-  std::string print = "SeekerWait ";
+  std::string print = "Seeker Waiting";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print = print + to_string(count);
   

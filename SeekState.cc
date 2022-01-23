@@ -125,7 +125,8 @@ void SeekState::update(shared_ptr<Command> cmd, shared_ptr<stack<shared_ptr<Role
 	}
       case JUMP:
 	{
-	  std::cout<<"REALLY! you want to jump!"<<endl;
+	  //std::cout<<player->getName()<<" REALLY !! YOU WANT TO JUMP ??"<<endl;
+	  
 	  break;
 	}
 	case CHECK:

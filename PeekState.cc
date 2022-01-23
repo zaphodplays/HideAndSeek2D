@@ -34,7 +34,7 @@ shared_ptr<vector<CommandType> > PeekState::getAllowedCommands()
 
 std::string PeekState::printState()
 {
-  std::cout<<"PeekState::printState()"<<endl;
+  //std::cout<<"PeekState::printState()"<<endl;
   std::string print = " in room ";
   shared_ptr<Room> location = Room::roomIDMap->find(getLocationID())->second;
   print= print+ location->getName();

@@ -259,7 +259,7 @@ void EngineMain()
 	double utime = 0;
 	double seqtime = 0;
 	const double SEQSECS = 0.05;
-	const double CMDSECS = 1;
+	const double CMDSECS = 0.5;
 	const double FPS = 0.01;
 	
 	
