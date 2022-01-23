@@ -215,6 +215,7 @@ void setupPlayer(shared_ptr<Player> player, Engine *engine, int roomid)
 void EngineMain()
 {
 	//srand((int) time(0));
+	
 	std::cout<<"before creating world"<<endl;
 	Engine* engine = new Engine();
 	if(engine == nullptr)
@@ -258,8 +259,8 @@ void EngineMain()
 	double btime = 0;
 	double utime = 0;
 	double seqtime = 0;
-	const double SEQSECS = 0.05;
-	const double CMDSECS = 0.5;
+	const double SEQSECS = 1;
+	const double CMDSECS = 1.2;
 	const double FPS = 0.01;
 	
 	
@@ -325,7 +326,7 @@ void EngineMain()
 		     btime = timestamp;
 		     
 		}
-		if(timestamp - ftime < 0.001)
+		if(timestamp - ftime < 0.0001)
 			continue;
 		//std::cout<<"just before print state invoc"<<endl;
 		user->printState(200,510);
