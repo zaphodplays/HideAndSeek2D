@@ -20,7 +20,7 @@ c++ -std=c++11 Point2d.cc Line.cc Circle.cc Polygon.cc TextObject.cc Engine.cc D
 # The game will start with an initial wait (10 seconds), while the players can run and hide 
 # If you are a seeker, you are restricted and waiting at this time
 # If you are a hider, you have to move and hide somewhere
-# general commands -   
+# general commands - a player with any role can type these commands  
 # 1. move north/south/west/east  
 # 2. hide in Tree/Chair
 # 3. peek
@@ -28,4 +28,5 @@ c++ -std=c++11 Point2d.cc Line.cc Circle.cc Polygon.cc TextObject.cc Engine.cc D
 # 5. jump
 # special command for seeker to find the hiders
 # check Chair/Tree
+# NOTE - If you mistype something, just press enter and type the command again
 # The game goes on until the seeker has found all the hiders

@@ -335,8 +335,10 @@ void EngineMain()
 		
 		Room::roomIDMap->find(user->role->stateStack->top()->getLocationID())->second->display(engine);
 		ftime = timestamp;
-		int x = 200, y = 540;
+		int x = 200, y = 530;
 		list<shared_ptr<AIPlayer> >::iterator pitor = aiplayers.begin();
+		int num_hiders = aiplayers.size();
+		int remaining = num_hiders;
 		while(pitor != aiplayers.end())
 		{
 			
@@ -344,11 +346,23 @@ void EngineMain()
 			shared_ptr<RoleState> state = aiplayer->role->stateStack->top();
 			shared_ptr<FoundState> foundState(dynamic_pointer_cast<FoundState>(state) );
 			if(foundState != nullptr)
+			{
 				aiplayer->printState(x,y);
-			y = y + 30;
+				y = y + 20;
+				remaining--;
+			}
+				
 			pitor++;	
 		}
-		
+		if(!remaining)
+		{
+			//ALL HAVE BEEN FOUND
+			// GAME OVER
+			const string gameover = "GAME OVER";
+			engine->drawText(gameover.c_str(), 200, 480);
+			//break;
+		}
+			
 		
 		
 		  
